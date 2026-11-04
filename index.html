@@ -70,7 +70,7 @@ h3{font-size:16px;margin:4px 0 10px}.muted{color:var(--muted);font-size:13px}
 <button data-tab="settings" onclick="tab('settings')"><strong>⚙</strong>Ещё</button>
 </nav>
 <script>
-const KEY='myRitmDataV2'; let data=JSON.parse(localStorage.getItem(KEY)||'{"sticks":[],"meds":[],"food":[],"water":[],"stickReminder":0,"taken":[]}');
+const KEY='myRitmDataV2'; let data=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem('myRitmDataV1')||'{"sticks":[],"meds":[],"food":[],"water":[],"stickReminder":0,"taken":[]}');
 const today=()=>new Date().toLocaleDateString('sv-SE');
 const now=()=>new Date().toTimeString().slice(0,5);
 document.getElementById('today').textContent=new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'});
