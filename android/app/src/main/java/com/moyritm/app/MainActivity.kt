@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.weight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -30,6 +29,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -71,13 +71,9 @@ private val appTabs = listOf(
 private fun MyRitmApp(database: AppDatabase) {
     var selectedTab by rememberSaveable { mutableStateOf(0) }
 
-    val zone = rememberSaveable { ZoneId.systemDefault() }
-    val todayStart = rememberSaveable {
-        LocalDate.now().atStartOfDay(zone).toInstant().toEpochMilli()
-    }
-    val tomorrowStart = rememberSaveable {
-        LocalDate.now().plusDays(1).atStartOfDay(zone).toInstant().toEpochMilli()
-    }
+    val zone = ZoneId.systemDefault()
+    val todayStart = LocalDate.now().atStartOfDay(zone).toInstant().toEpochMilli()
+    val tomorrowStart = LocalDate.now().plusDays(1).atStartOfDay(zone).toInstant().toEpochMilli()
 
     val sticks by database.stickDao()
         .observeBetween(todayStart, tomorrowStart)
@@ -285,7 +281,7 @@ private fun MetricCard(
 ) {
     Card(
         modifier = modifier.clickable(onClick = onClick),
-        shape = CardDefaults.shape,
+        shape = RoundedCornerShape(22.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         )
